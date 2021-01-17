@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-17 15:32:27
- * @LastEditTime: 2021-01-17 15:39:07
+ * @LastEditTime: 2021-01-17 16:13:25
  */
 declare (strict_types = 1);
 
@@ -13,10 +13,11 @@ use app\BaseController;
 class goods extends BaseController
 {
     /**
-     * 构造函数，判断
+     * 构造函数，判断是否登录
      */
+    private $user;
     public function __construct(){
-        $this->login_check();
+        $this->user=$this->login_check();
 
     }
     /**

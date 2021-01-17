@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-14 22:58:56
- * @LastEditTime: 2021-01-17 15:41:35
+ * @LastEditTime: 2021-01-17 21:05:11
  */
 declare (strict_types = 1);
 
@@ -100,14 +100,14 @@ abstract class BaseController
      * 如果不存在返回失败
      */
     private function token_check(){
-        $this->request->post('login');//获取token
-        return 1;
+        $token = $this->request->post('token');//获取token
+        return cache($token);
     }
     /**
      * 登录检验功能  
      */
     protected function login_check(){
-        $this->user=$this->token_check();
+        $this->user=json_decode($this->token_check());
         if($this->user){
             return $this->user;
         }else{
