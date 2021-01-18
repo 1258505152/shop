@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-15 00:52:45
- * @LastEditTime: 2021-01-17 21:05:36
+ * @LastEditTime: 2021-01-18 11:37:29
  */
 declare (strict_types = 1);
 
@@ -22,21 +22,17 @@ class Login extends BaseController
      */
     public function index()
     {
-        $data = [
-            'code'=>'200',
-            'msg'=>'登录成功',
-            'data'=>$this->login_check() ,
-             ];
-        return json($data);
+        
+        return $this->success('ok',200,$this->login_check());
     }
     /**
      * 登录功能
      */
     public function login(){
         
-        if($this->request->post('login')){//检查post请求
+        if($this->request->param('login')){//检查post请求
            
-            $res = $this->request->post('login'); 
+            $res = $this->request->param('login'); 
          
             $user = Db::name('user')->where('name',$res['name'])->where('psw',$res['psw'])->find();
             if(!empty($user)){

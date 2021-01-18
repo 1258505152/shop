@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-14 22:58:56
- * @LastEditTime: 2021-01-17 21:05:11
+ * @LastEditTime: 2021-01-18 13:48:40
  */
 declare (strict_types = 1);
 
@@ -11,6 +11,7 @@ namespace app;
 use think\App;
 use think\exception\ValidateException;
 use think\Validate;
+use app\common\controller\User;
 
 /**
  * 控制器基础类
@@ -96,23 +97,21 @@ abstract class BaseController
         return $v->failException(true)->check($data);
     }
     /**
-     * token验证操作产看是否存在，并返回用户信息
-     * 如果不存在返回失败
-     */
-    private function token_check(){
-        $token = $this->request->post('token');//获取token
-        return cache($token);
-    }
-    /**
      * 登录检验功能  
      */
     protected function login_check(){
-        $this->user=json_decode($this->token_check());
-        if($this->user){
-            return $this->user;
-        }else{
-            return false;
-        }
+        return User::login_check();
+    }
+    /**
+     * 成功响应
+     */
+    protected function success($msg='ok',$code=200,$data=null){
+        $data = [
+            'code'=>$code,
+            'msg'=>$msg,
+            'data'=>$data,
+        ];
+        return json($data);
     }
 
 }

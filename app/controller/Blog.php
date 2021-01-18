@@ -2,13 +2,14 @@
 /*
  * @name: wjl
  * @Date: 2021-01-15 00:23:48
- * @LastEditTime: 2021-01-15 00:26:34
+ * @LastEditTime: 2021-01-17 23:32:39
  */
 declare (strict_types = 1);
 
 namespace app\controller;
 
 use think\Request;
+use think\Facade\Db;
 
 class Blog
 {

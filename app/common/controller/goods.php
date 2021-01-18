@@ -2,97 +2,30 @@
 /*
  * @name: wjl
  * @Date: 2021-01-17 15:32:27
- * @LastEditTime: 2021-01-17 16:13:25
+ * @LastEditTime: 2021-01-18 13:36:46
  */
 declare (strict_types = 1);
 
 namespace app\common\controller;
 
-use app\BaseController;
 
-class goods extends BaseController
+use app\model\GoodsModel;
+use think\Facade\Db;
+
+class Goods 
 {
     /**
-     * 构造函数，判断是否登录
+     * 获取商品分类
      */
-    private $user;
-    public function __construct(){
-        $this->user=$this->login_check();
-
+    public function get_goods_type(){
+        return Db::name('goods_type')->select();
     }
     /**
-     * 显示资源列表
-     *
-     * @return \think\Response
+     * 获取推荐商品
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
+    public function get_suggest_goods($user_id,$page=1){
+        $goodsmodel = new GoodsModel();
+    
+        return $goodsmodel->suggest_goods($user_id,$page);   
     }
 }
