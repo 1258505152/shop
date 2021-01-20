@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-14 22:58:56
- * @LastEditTime: 2021-01-18 13:48:40
+ * @LastEditTime: 2021-01-20 19:13:19
  */
 declare (strict_types = 1);
 
@@ -113,5 +113,19 @@ abstract class BaseController
         ];
         return json($data);
     }
+    /**
+     * 失败
+     */
+    protected function error($msg='no',$code=400,$data=null,$url = null){
+        $data = [
+            'code'=>$code,
+            'msg'=>$msg,
+            'data'=>$data,
+            'url'=>$url,
+        ];
+        return json($data);
+    }
+
+    
 
 }

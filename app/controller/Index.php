@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-17 21:04:13
- * @LastEditTime: 2021-01-19 20:12:30
+ * @LastEditTime: 2021-01-20 20:47:48
  */
 namespace app\controller;
 
@@ -30,9 +30,9 @@ class Index extends BaseController
         $goods = new Goods();
         $data=array(
             'user'=>$this->user,
-            'shop_cart'=> $user->get_shop_cart(empty($this->user) ? $this->user['id']:false),
+            'shop_cart'=> $user->get_shop_cart(!empty($this->user) ? $this->user['id']:false),
             'goods_type'=> $goods->get_goods_type(),
-            'suggest_goods'=> $goods->get_suggest_goods(empty($this->user) ? $this->user['id']:false),
+            'suggest_goods'=> $goods->get_suggest_goods(!empty($this->user) ? $this->user['id']:false),
         );
         
         return $this->success('ok',200,$data);
@@ -45,7 +45,7 @@ class Index extends BaseController
         $goods = new Goods();
         return $this->success('ok',200,$goods->get_suggest_goods(empty($this->user) ? $this->user['id']:false ,Request::param('page')));
     }
-
+    
     
     
     

@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-18 09:59:04
- * @LastEditTime: 2021-01-18 12:34:48
+ * @LastEditTime: 2021-01-20 20:50:37
  */
 declare (strict_types = 1);
 
@@ -37,6 +37,37 @@ class User
         }
     }
 
+    /**
+     * 添加购物车
+     * @description: 添加购物车
+     * @param int $goods_id 商品id
+     * @param int $specifications_id 商品参数id
+     * @param int $cont 数量
+     * @return  bool
+     */    
+    public function add_shop_cart($user_id,$goods_id,$specifications_id,$cont=1){
+        $goods = Db::name('goods')->where('id',$goods_id)->find();
+        $specifications =$goods['specifications'];
+        $specifications = json_decode($specifications,true);
+        $name='';
+
+        foreach ($specifications['goods'][$specifications_id]['specifications'] as $key => $value) {
+            $name=$name.' '.$value;
+        }
+       
+        $price = $specifications['goods'][$specifications_id]['price'];
+        
+        $data=array(
+            'user_id'=> $user_id,
+            'goods_id'=>$goods_id,
+            'goods_name'=>$goods['name'].$name,
+            'goods_specifications_id'=>$specifications_id,
+            'price'=>$price,
+            'cont'=>$cont,
+        );
+        Db::name('shop_cart')->INSERT($data);
+        return true;
+    }
 
     /**
      * 获取购物车应用
@@ -44,18 +75,11 @@ class User
     public function get_shop_cart($user_id){
         if(empty($user_id))
             return false;
-        $data=array(
-            'shop_cart'=>[['id'=>'1','name'=>'name','price'=>'price','type'=>'type','standard'=>'{\"\"}']],
-        );
+        $data=Db::name('shop_cart')->where('user_id',$user_id)->select()->toArray();
+       
         return $data;
     }
-    /**
-     * 添加购物车
-     */
-    public function add_shop_cart(){
-
-        return true;
-    }
+   
     /**
      * 添加用户
      */

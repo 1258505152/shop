@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-17 15:32:27
- * @LastEditTime: 2021-01-19 20:13:45
+ * @LastEditTime: 2021-01-20 20:33:24
  */
 declare (strict_types = 1);
 
@@ -30,4 +30,20 @@ class Goods
     
         return $goodsmodel->suggest_goods($user_id,$page);   
     }
+   
+    /**
+     * 获取商品内容
+     * @description: 
+     * @param int $id 商品id
+     * @return array
+     */    
+    public function get_goods_content($id=null){
+        if(empty($id))
+            return false;
+        $goods = Db::name('goods')->where('id',$id)->find();
+        return $goods;
+    }
+
+ 
+  
 }

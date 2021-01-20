@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-19 10:43:00
- * @LastEditTime: 2021-01-19 20:17:25
+ * @LastEditTime: 2021-01-20 11:24:35
  */
 declare (strict_types = 1);
 
@@ -25,8 +25,8 @@ class GoodsTypeModel extends Model
      */    
     public function goods_type(){
         $tree = new Tree();
-        $type = $this->select();
-        $type = json_decode(json_encode($type),true);//将类转换为数组
+        $type = $this->select()->toArray();
+       // $type = json_decode(json_encode($type),true);//将类转换为数组
         $tree->init($type,'id','ahead');
         return $tree->tree;
         
