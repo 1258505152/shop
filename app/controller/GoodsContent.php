@@ -2,7 +2,7 @@
 /*
  * @name: wjl
  * @Date: 2021-01-20 11:01:16
- * @LastEditTime: 2021-01-20 20:42:30
+ * @LastEditTime: 2021-01-23 20:56:48
  */
 namespace app\controller;
 
@@ -20,7 +20,7 @@ class GoodsContent extends BaseController
     public $user;
     public function __construct(){
         $this->user=User::login_check();
-
+      
     }
    
     public function index(){
